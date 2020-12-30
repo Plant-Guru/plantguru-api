@@ -34,7 +34,7 @@ config :plantguru, :pow,
   extensions: [PowResetPassword, PowEmailConfirmation],
   controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks,
   mailer_backend: PlantGuru.Pow.Mailer,
-  web_mailer_module: PlantGuru
+  web_mailer_module: PlantGuruWeb
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
