@@ -1,5 +1,5 @@
-defmodule MyAppWeb.API.V1.RegistrationController do
-    use MyAppWeb, :controller
+defmodule PlantGuruWeb.API.V1.RegistrationController do
+    use PlantGuruWeb, :controller
   
     alias Ecto.Changeset
     alias Plug.Conn
