@@ -3,12 +3,26 @@ defmodule PlantGuruWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug PlantGuruWeb.APIAuthPlug, otp_app: :plantguru
   end
 
-  scope "/api", PlantGuruWeb do
+  pipeline :api_protected do
+    plug Pow.Plug.RequireAuthenticated, error_handler: PlantGuruWeb.APIAuthErrorHandler
+  end
+
+  scope "/api/v1", PlantGuruWeb.API.V1, as: :api_v1 do
     pipe_through :api
+
+    resources "/registration", RegistrationController, singleton: true, only: [:create]
+    resources "/session", SessionController, singleton: true, only: [:create, :delete]
+    post "/session/renew", SessionController, :renew
   end
 
+  scope "/api/v1", PlanGuruWeb.API.V1, as: :api_v1 do
+    pipe_through [:api, :api_protected]
+
+    # Your protected API endpoints here
+  end
   # Enables LiveDashboard only for development
   #
   # If you want to use the LiveDashboard in production, you should put

@@ -30,7 +30,11 @@ config :phoenix, :json_library, Jason
 
 config :plantguru, :pow,
   user: PlantGuru.Users.User,
-  repo: PlantGuru.Repo
+  repo: PlantGuru.Repo,
+  extensions: [PowResetPassword, PowEmailConfirmation],
+  controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks,
+  mailer_backend: PlantGuru.Pow.Mailer,
+  web_mailer_module: PlantGuru
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

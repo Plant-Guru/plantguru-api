@@ -42,6 +42,15 @@ defmodule PlantGuruWeb do
     end
   end
 
+  def mailer_view do
+    quote do
+      use Phoenix.View, root: "lib/my_app_web/templates",
+                        namespace: PlantGuruWeb
+
+      use Phoenix.HTML
+    end
+  end
+
   def router do
     quote do
       use Phoenix.Router
