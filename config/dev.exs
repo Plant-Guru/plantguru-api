@@ -21,7 +21,7 @@ config :plantguru, PlantGuruWeb.Endpoint,
   code_reloader: true,
   check_origin: false,
   watchers: [],
-  front_end_email_confirm_url: "http://localhost:3000/confirm-email/{token}"
+  front_end_email_confirm_url: "http://localhost:4000/api/v1/confirm-email/{token}"
 
 # ## SSL Support
 #
