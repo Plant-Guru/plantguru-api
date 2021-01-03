@@ -13,6 +13,9 @@ config :plantguru, PlantGuruWeb.Endpoint,
   url: [host: "example.com", port: 80],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
+config :cors_plug,
+  origin: ["https://plant-guru.com"]
+
 # Do not print debug messages in production
 config :logger, level: :info
 

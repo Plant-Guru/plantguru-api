@@ -120,4 +120,4 @@ defmodule PlantGuruWeb.APIAuthPlug do
     
         [backend: backend]
     end
-  end
+end
