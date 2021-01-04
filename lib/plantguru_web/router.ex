@@ -4,6 +4,7 @@ defmodule PlantGuruWeb.Router do
   pipeline :api do
     plug :accepts, ["json"]
     plug PlantGuruWeb.APIAuthPlug, otp_app: :plantguru
+    plug PlantGuruWeb.Plug.APIHeaders
   end
 
   pipeline :api_protected do
