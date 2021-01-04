@@ -1,9 +1,9 @@
-defmodule PlantGuruWeb.API.V1.SessionController do
+defmodule PlantGuruWeb.API.V1.TokenController do
     use PlantGuruWeb, :controller
-  
+
     alias Plug.Conn
-  
-    @spec delete(Conn.t(), map()) :: Conn.t()
+
+    @spec get_csrf(Conn.t(), map()) :: Conn.t()
     def get_csrf(conn, _params) do
         conn
         |> json(%{csrf_token: get_csrf_token()})

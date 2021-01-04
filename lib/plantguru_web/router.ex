@@ -4,7 +4,16 @@ defmodule PlantGuruWeb.Router do
   pipeline :api do
     plug :accepts, ["json"]
     plug PlantGuruWeb.APIAuthPlug, otp_app: :plantguru
-    plug PlantGuruWeb.Plug.APIHeaders
+    plug PlantGuruWeb.Plug.RequestWith
+    plug :put_secure_browser_headers
+  end
+
+  pipeline :csrf do
+    plug PlantGuruWeb.Plug.CSRF
+  end
+
+  pipeline :dashboard do
+    plug PlantGuruWeb.Plug.EnsureAJAX
   end
 
   pipeline :api_protected do
@@ -12,17 +21,22 @@ defmodule PlantGuruWeb.Router do
   end
 
   scope "/api/v1", PlantGuruWeb.API.V1, as: :api_v1 do
-    pipe_through :api
+    pipe_through [:api, :csrf]
 
     resources "/registration", RegistrationController, singleton: true, only: [:create]
     resources "/session", SessionController, singleton: true, only: [:create, :delete]
     post "/session/renew", SessionController, :renew
     resources "/confirm-email", ConfirmationController, only: [:show]
+  end
+
+  scope "/api/v1", PlantGuruWeb.API.V1, as: :api_v1 do
+    pipe_through :api
+
     get "/csrf", TokenController, :get_csrf
   end
 
   scope "/api/v1", PlanGuruWeb.API.V1, as: :api_v1 do
-    pipe_through [:api, :api_protected]
+    pipe_through [:api, :csrf, :api_protected]
 
   end
 
