@@ -27,11 +27,6 @@ defmodule PlantGuruWeb.Router do
     resources "/session", SessionController, singleton: true, only: [:create, :delete]
     post "/session/renew", SessionController, :renew
     resources "/confirm-email", ConfirmationController, only: [:show]
-  end
-
-  scope "/api/v1", PlantGuruWeb.API.V1, as: :api_v1 do
-    pipe_through :api
-
     get "/csrf", TokenController, :get_csrf
   end
 
