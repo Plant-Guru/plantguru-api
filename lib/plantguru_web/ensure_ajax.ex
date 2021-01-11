@@ -7,7 +7,7 @@ defmodule PlantGuruWeb.Plug.EnsureAJAX do
         requested_with = conn |> get_req_header("x-requested-with")
         origin = conn |> get_req_header("origin")
         is_requested_with = requested_with |> Enum.map(fn value -> value == "XMLHTTPRequest" end) |> Enum.member?(true)
-        is_origin = origin |> Enum.map(fn value -> value == "https://plant-guru.com" end) |> Enum.member?(true)
+        # @todo maybe check origin
         if(is_requested_with) do
             conn
         else

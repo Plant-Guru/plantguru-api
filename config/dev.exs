@@ -9,8 +9,8 @@ config :plantguru, PlantGuru.Repo,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
-# config :cors_plug,
-#   origin: ["http://localhost:3000"]
+config :cors_plug,
+  origin: ["http://localhost:3000"]
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
