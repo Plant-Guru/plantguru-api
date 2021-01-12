@@ -16,7 +16,7 @@ config :plantguru,
 config :plantguru, PlantGuruWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "jGk7ApdZEgykt/nVMQox7UZhmZVjiQ0kxoJBNS8T2xchppPwtbVaxVYVv3jM3jp4",
-  render_errors: [view: PlantGuruWeb.ErrorView, accepts: ~w(json), layout: false],
+  render_errors: [view: PlantGuruWeb.ErrorView, format: "json", accepts: ~w(json), layout: false],
   pubsub_server: PlantGuru.PubSub,
   live_view: [signing_salt: "We22+IPs"]
 
