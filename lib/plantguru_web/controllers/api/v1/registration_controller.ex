@@ -11,9 +11,34 @@ defmodule PlantGuruWeb.API.V1.RegistrationController do
         |> Pow.Plug.create_user(user_params)
         |> case do
             {:ok, user, conn} ->
-                send_confirmation_email(user, conn)  # Line Added
+                send_confirmation_email(user, conn)
+                
+                domain = PlantGuruWeb.Endpoint.host()
 
-                json(conn, %{data: %{access_token: conn.private[:api_access_token], renewal_token: conn.private[:api_renewal_token]}})
+                conn
+                |> put_resp_cookie(
+                    "access_token",
+                    conn.private[:api_access_token],
+                    http_only: true,
+                    domain: domain,
+                    max_age: 1_800,
+                    secure: Mix.env() == :prod,
+                    encrypt: true,
+                    sign: true,
+                    same_site: "lax"
+                )
+                |> put_resp_cookie(
+                    "renewal_token",
+                    conn.private[:api_access_token],
+                    http_only: true,
+                    domain: domain,
+                    max_age: 86_400,
+                    secure: Mix.env() == :prod,
+                    encrypt: true,
+                    sign: true,
+                    same_site: "lax"
+                )
+                |> json(%{data: %{ message: "success" }})
 
             {:error, changeset, conn} ->
                 errors = Changeset.traverse_errors(changeset, &ErrorHelpers.translate_error/1)
